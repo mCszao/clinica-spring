@@ -38,23 +38,23 @@ public class DoctorService {
     }
 
     public void updateWhereID(DoctorUpdateDTO dto) throws Exception{
-//        try {
-//            DoctorEntity docManager = this.repository.getReferenceById(dto.id());
-//            if(dto.fone() != null){
-//                docManager.setFone(dto.fone());
-//            }
-//            if(dto.name() != null){
-//                docManager.setName(dto.name());
-//            }
-//            if(dto.addressDTO() != null){
-//                docManager.setAddress(new AddressEmbeddable(dto.addressDTO()));
-//            }
-//            if (dto.active() != null) {
-//                docManager.setActive(dto.active());
-//            }
-//        }catch (Exception e){
-//            throw new Exception("Error :" + e.getMessage());
-//        }
+        try {
+            DoctorEntity docManager = this.repository.getReferenceById(dto.id());
+            if(dto.fone() != null){
+                docManager.setFone(dto.fone());
+            }
+            if(dto.name() != null){
+                docManager.setName(dto.name());
+            }
+            if(dto.addressDTO() != null){
+                docManager.setAddress(new AddressEmbeddable(dto.addressDTO()));
+            }
+            if (dto.active() != null) {
+                docManager.setActive(dto.active());
+            }
+        }catch (Exception e){
+            throw new Exception("Error :" + e.getMessage());
+        }
     }
 
     public void logicalDeleteWhereID(Long id) throws Exception{
