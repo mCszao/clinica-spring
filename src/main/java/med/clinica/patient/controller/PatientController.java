@@ -3,6 +3,7 @@ package med.clinica.patient.controller;
 import med.clinica.doctor.dto.ShortDoctorDTO;
 import med.clinica.patient.dto.PatientDTO;
 import med.clinica.patient.dto.ShortPatientDTO;
+import med.clinica.patient.dto.UpdatePatientDTO;
 import med.clinica.patient.services.PatientService;
 import med.clinica.util.PageableResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,12 @@ public class PatientController {
     @GetMapping("/{patientId}")
     public ShortPatientDTO getById(@PathVariable Long patientId) throws Exception {
         return PatientService.selectWhereID(patientId);
+    }
+
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody UpdatePatientDTO data) throws Exception{
+        PatientService.updateWhereID(data);
     }
 
 
