@@ -12,11 +12,9 @@ public class ShortPatientDTO {
     private Long id;
     private String name;
     private String mail;
-    private String cpf;
 
     public ShortPatientDTO(PatientEntity patient){
         this.id = patient.getId();
-        this.cpf = patient.getCpf();
         this.name = patient.getName();
         this.mail = patient.getMail();
     }
