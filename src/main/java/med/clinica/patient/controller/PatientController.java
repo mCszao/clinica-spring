@@ -48,6 +48,12 @@ public class PatientController {
         PatientService.updateWhereID(data);
     }
 
+    @DeleteMapping("/{patientId}")
+    @Transactional
+    public void setOff(@PathVariable Long patientId) throws Exception{
+        PatientService.logicalDeleteWhereID(patientId);
+    }
+
 
 
 
