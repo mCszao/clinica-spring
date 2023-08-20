@@ -55,4 +55,14 @@ public class PatientService {
             throw new Exception("Error :" + e.getMessage());
         }
     }
+
+    public void logicalDeleteWhereID(Long id) throws Exception{
+        try {
+            PatientEntity patientManager = this.repository.getReferenceById(id);
+            patientManager.setActive(false);
+        }catch(Exception e) {
+            throw new Exception("Error :" + e.getMessage());
+        }
+
+    }
 }
