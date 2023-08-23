@@ -10,6 +10,7 @@ import med.clinica.util.PageableResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,21 +23,23 @@ public class DoctorController {
     @PostMapping
     @Transactional
     @RequestMapping(value = "/signup")
-    public void add(@RequestBody @Valid DoctorDTO doctor){
+    public ResponseEntity add(@RequestBody @Valid DoctorDTO doctor){
         System.out.println(doctor);
         try {
             DocService.insert(doctor);
+            return ResponseEntity.noContent().build();
         }catch (Exception e) {
-            System.out.println("Error: "+ e.getMessage());
+            return ResponseEntity.internalServerError().build();
         }
 
     }
 
 
     @GetMapping
-    public PageableResponse<ShortDoctorDTO> getAll(@PageableDefault(size = 5, sort = {"name"}) Pageable pageOptions) throws Exception{
+    public ResponseEntity<PageableResponse<ShortDoctorDTO>> getAll(@PageableDefault(size = 5, sort = {"name"}) Pageable pageOptions) throws Exception{
         try {
-            return DocService.selectAll(pageOptions);
+            var response = DocService.selectAll(pageOptions);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -45,26 +48,30 @@ public class DoctorController {
 
 
     @GetMapping("/{doctorId}")
-    public ShortDoctorDTO getById(@PathVariable Long doctorId) throws Exception{
-            return DocService.selectWhereID(doctorId);
+    public ResponseEntity<ShortDoctorDTO> getById(@PathVariable Long doctorId) throws Exception{
+            var response = DocService.selectWhereID(doctorId);
+            return ResponseEntity.ok(response);
     }
 
     @PutMapping
     @Transactional
-    public void update(@RequestBody DoctorUpdateDTO data) throws Exception{
+    public ResponseEntity update(@RequestBody DoctorUpdateDTO data) throws Exception{
             DocService.updateWhereID(data);
+            return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{doctorId}")
     @Transactional
-    public void setOff(@PathVariable Long doctorId) throws Exception{
+    public ResponseEntity setOff(@PathVariable Long doctorId) throws Exception{
        DocService.logicalDeleteWhereID(doctorId);
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{doctorId}")
     @Transactional
-    public void setOn(@PathVariable Long doctorId , @RequestBody DoctorUpdateDTO data) throws Exception{;
+    public ResponseEntity setOn(@PathVariable Long doctorId , @RequestBody DoctorUpdateDTO data) throws Exception{;
         DocService.setActiveWhereID(doctorId, data);
+        return ResponseEntity.noContent().build();
     }
 
 
