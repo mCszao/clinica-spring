@@ -9,6 +9,7 @@ import med.clinica.util.PageableResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -23,35 +24,40 @@ public class PatientController {
     @PostMapping
     @Transactional
     @RequestMapping(value = "/signup")
-    public void add(@RequestBody PatientDTO patient){
+    public ResponseEntity add(@RequestBody PatientDTO patient){
         System.out.println(patient);
         try {
             PatientService.insert(patient);
+            return ResponseEntity.noContent().build();
         }catch (Exception e) {
-            System.out.println("Error: "+ e.getMessage());
+            return ResponseEntity.internalServerError().build();
         }
     }
 
     @GetMapping
-    public PageableResponse<ShortPatientDTO> getAll(@PageableDefault(size = 10, sort = {"name"}) Pageable pageOptions){
-        return PatientService.selectAll(pageOptions);
+    public ResponseEntity<PageableResponse<ShortPatientDTO>> getAll(@PageableDefault(size = 10, sort = {"name"}) Pageable pageOptions){
+        var response = PatientService.selectAll(pageOptions);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{patientId}")
-    public ShortPatientDTO getById(@PathVariable Long patientId) throws Exception {
-        return PatientService.selectWhereID(patientId);
+    public ResponseEntity<ShortPatientDTO> getById(@PathVariable Long patientId) throws Exception {
+        var response = PatientService.selectWhereID(patientId);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping
     @Transactional
-    public void update(@RequestBody UpdatePatientDTO data) throws Exception{
+    public ResponseEntity update(@RequestBody UpdatePatientDTO data) throws Exception{
         PatientService.updateWhereID(data);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{patientId}")
     @Transactional
-    public void setOff(@PathVariable Long patientId) throws Exception{
+    public ResponseEntity setOff(@PathVariable Long patientId) throws Exception{
         PatientService.logicalDeleteWhereID(patientId);
+        return ResponseEntity.noContent().build();
     }
 
 
