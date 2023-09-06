@@ -20,8 +20,10 @@ public class DoctorService {
     private DoctorRepository repository;
 
 
-    public void insert(DoctorDTO dto) {
-        this.repository.save(new DoctorEntity(dto));
+    public ShortDoctorDTO insert(DoctorDTO dto) {
+        var doctor = new DoctorEntity(dto);
+        this.repository.save(doctor);
+        return new ShortDoctorDTO(doctor);
     }
 
 
