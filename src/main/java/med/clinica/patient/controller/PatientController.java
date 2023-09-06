@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 @RestController
@@ -24,11 +25,12 @@ public class PatientController {
     @PostMapping
     @Transactional
     @RequestMapping(value = "/signup")
-    public ResponseEntity add(@RequestBody PatientDTO patient){
+    public ResponseEntity<ShortPatientDTO> add(@RequestBody PatientDTO patient,UriComponentsBuilder uriBuilder){
         System.out.println(patient);
         try {
-            PatientService.insert(patient);
-            return ResponseEntity.noContent().build();
+            var dto = PatientService.insert(patient);
+            var uri = uriBuilder.path("/patient/{id}").buildAndExpand(dto.getId()).toUri();
+            return ResponseEntity.created(uri).body(dto);
         }catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
