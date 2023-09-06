@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/doctors")
@@ -23,11 +24,11 @@ public class DoctorController {
     @PostMapping
     @Transactional
     @RequestMapping(value = "/signup")
-    public ResponseEntity add(@RequestBody @Valid DoctorDTO doctor){
-        System.out.println(doctor);
+    public ResponseEntity add(@RequestBody @Valid DoctorDTO doctor, UriComponentsBuilder uriBuilder){
         try {
-            DocService.insert(doctor);
-            return ResponseEntity.noContent().build();
+            var dto = DocService.insert(doctor);
+            var uri = uriBuilder.path("/doctors/{id}").buildAndExpand(dto.getId()).toUri();
+            return ResponseEntity.created(uri).body(dto);
         }catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
