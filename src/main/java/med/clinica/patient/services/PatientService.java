@@ -18,8 +18,10 @@ public class PatientService {
     @Autowired
     private PatientRepository repository;
 
-    public void insert(PatientDTO dto){
-        this.repository.save(new PatientEntity(dto));
+    public ShortPatientDTO insert(PatientDTO dto){
+        var patient = new PatientEntity(dto);
+        this.repository.save(patient);
+        return new ShortPatientDTO(patient);
     }
 
 
