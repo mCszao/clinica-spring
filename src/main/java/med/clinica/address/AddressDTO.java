@@ -20,4 +20,8 @@ public record AddressDTO(
         String uf,
         @NotBlank
         @Pattern(regexp = "\\d{6,8}")
-        String zipcode) { }
+        String zipcode) {
+        public AddressDTO(AddressEmbeddable address){
+                this(address.getStreet(), address.getNumber(),address.getComplement(),address.getDistrict(),address.getCity(),address.getUf(),address.getZipcode());
+        }
+}
