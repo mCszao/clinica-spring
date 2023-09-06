@@ -39,7 +39,7 @@ public class DoctorService {
         }
     }
 
-    public void updateWhereID(DoctorUpdateDTO dto) throws Exception{
+    public DoctorDTO updateWhereID(DoctorUpdateDTO dto) throws Exception{
         try {
             DoctorEntity docManager = this.repository.getReferenceById(dto.id());
             if(dto.fone() != null){
@@ -54,6 +54,7 @@ public class DoctorService {
             if (dto.active() != null) {
                 docManager.setActive(dto.active());
             }
+            return new DoctorDTO(docManager);
         }catch (Exception e){
             throw new Exception("Error :" + e.getMessage());
         }
