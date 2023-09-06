@@ -29,5 +29,9 @@ public record DoctorDTO(
         @Valid
         AddressDTO address
 ) {
+        public DoctorDTO(DoctorEntity entity){
+                this(entity.getName(),entity.getMail(),entity.getCpf(), entity.getFone(), entity.getCrm(),entity.getSpecialty(),new AddressDTO(entity.getAddress()));
+        }
+
 
 }
