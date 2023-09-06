@@ -24,7 +24,7 @@ public class DoctorController {
     @PostMapping
     @Transactional
     @RequestMapping(value = "/signup")
-    public ResponseEntity add(@RequestBody @Valid DoctorDTO doctor, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<ShortDoctorDTO> add(@RequestBody @Valid DoctorDTO doctor, UriComponentsBuilder uriBuilder){
         try {
             var dto = DocService.insert(doctor);
             var uri = uriBuilder.path("/doctors/{id}").buildAndExpand(dto.getId()).toUri();
@@ -56,9 +56,9 @@ public class DoctorController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity update(@RequestBody DoctorUpdateDTO data) throws Exception{
-            DocService.updateWhereID(data);
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<DoctorDTO> update(@RequestBody DoctorUpdateDTO data) throws Exception{
+            var doctor = DocService.updateWhereID(data);
+            return ResponseEntity.ok(doctor);
     }
 
     @DeleteMapping("/{doctorId}")
