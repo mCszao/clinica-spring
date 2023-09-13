@@ -37,7 +37,7 @@ public class PatientService {
         }
     }
 
-    public void updateWhereID(UpdatePatientDTO dto) throws Exception{
+    public ShortPatientDTO updateWhereID(UpdatePatientDTO dto) throws Exception{
         try {
             PatientEntity patientManager = this.repository.getReferenceById(dto.id());
             if(dto.fone() != null){
@@ -52,6 +52,7 @@ public class PatientService {
             if(dto.mail() != null){
                 patientManager.setMail(dto.mail());
             }
+            return new ShortPatientDTO(patientManager);
 
         }catch (Exception e){
             throw new Exception("Error :" + e.getMessage());
