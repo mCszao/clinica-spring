@@ -50,9 +50,9 @@ public class PatientController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity update(@RequestBody UpdatePatientDTO data) throws Exception{
-        PatientService.updateWhereID(data);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ShortPatientDTO> update(@RequestBody UpdatePatientDTO data) throws Exception{
+        var patient = PatientService.updateWhereID(data);
+        return ResponseEntity.ok(patient);
     }
 
     @DeleteMapping("/{patientId}")
