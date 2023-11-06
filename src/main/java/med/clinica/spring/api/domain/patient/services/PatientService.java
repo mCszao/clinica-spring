@@ -28,16 +28,11 @@ public class PatientService {
         return new PageableResponse<ShortPatientDTO>(this.repository.findAll(option).map(ShortPatientDTO::new));
     }
 
-    public ShortPatientDTO selectWhereID(Long id) throws Exception{
-        try {
+    public ShortPatientDTO selectWhereID(Long id) {
             return new ShortPatientDTO(this.repository.getReferenceById(id));
-        } catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
     }
 
-    public ShortPatientDTO updateWhereID(UpdatePatientDTO dto) throws Exception{
-        try {
+    public ShortPatientDTO updateWhereID(UpdatePatientDTO dto) {
             PatientEntity patientManager = this.repository.getReferenceById(dto.id());
             if(dto.fone() != null){
                 patientManager.setFone(dto.fone());
@@ -53,18 +48,11 @@ public class PatientService {
             }
             return new ShortPatientDTO(patientManager);
 
-        }catch (Exception e){
-            throw new Exception("Error :" + e.getMessage());
-        }
     }
 
-    public void logicalDeleteWhereID(Long id) throws Exception{
-        try {
+    public void logicalDeleteWhereID(Long id){
             PatientEntity patientManager = this.repository.getReferenceById(id);
             patientManager.setActive(false);
-        }catch(Exception e) {
-            throw new Exception("Error :" + e.getMessage());
-        }
 
     }
 }
