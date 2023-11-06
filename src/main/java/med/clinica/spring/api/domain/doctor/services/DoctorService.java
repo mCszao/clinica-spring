@@ -29,16 +29,11 @@ public class DoctorService {
         return new PageableResponse<ShortDoctorDTO>(this.repository.findAll(option).map(ShortDoctorDTO::new));
     }
 
-    public ShortDoctorDTO selectWhereID(Long id) throws Exception{
-        try {
+    public ShortDoctorDTO selectWhereID(Long id) {
         return new ShortDoctorDTO(this.repository.getReferenceById(id));
-        }catch (Exception e){
-            throw new Exception("error: " + e.getMessage());
-        }
     }
 
-    public DoctorDTO updateWhereID(DoctorUpdateDTO dto) throws Exception{
-        try {
+    public DoctorDTO updateWhereID(DoctorUpdateDTO dto) {
             DoctorEntity docManager = this.repository.getReferenceById(dto.id());
             if(dto.fone() != null){
                 docManager.setFone(dto.fone());
@@ -53,30 +48,19 @@ public class DoctorService {
                 docManager.setActive(dto.active());
             }
             return new DoctorDTO(docManager);
-        }catch (Exception e){
-            throw new Exception("Error :" + e.getMessage());
-        }
     }
 
-    public void logicalDeleteWhereID(Long id) throws Exception{
-        try {
+    public void logicalDeleteWhereID(Long id) {
             DoctorEntity docManager = this.repository.getReferenceById(id);
             docManager.setActive(false);
-        }catch (Exception e){
-            throw new Exception("error: " + e.getMessage());
-        };
     }
 
     public void setActiveWhereID(Long id, DoctorUpdateDTO data){
-        try {
             if(this.repository.getReferenceById(id).isActive()){
                     DoctorEntity notActiveDoctor = this.repository.getReferenceById(data.id());
                     notActiveDoctor.setActive(true);
 
             }
-        }catch (Exception e){
-            System.out.println("error: " + e.getMessage());
-        };
     }
 
 
