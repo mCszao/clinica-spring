@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.clinica.spring.api.domain.doctor.repository.DoctorEntity;
-import med.clinica.spring.api.model.Specialty;
+import med.clinica.spring.api.model.specialty.Specialty;
 
 @Getter
 @NoArgsConstructor

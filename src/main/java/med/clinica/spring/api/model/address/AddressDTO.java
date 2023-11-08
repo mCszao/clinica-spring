@@ -1,4 +1,4 @@
-package med.clinica.spring.api.domain.address;
+package med.clinica.spring.api.model.address;
 
 
 import jakarta.validation.constraints.NotBlank;
