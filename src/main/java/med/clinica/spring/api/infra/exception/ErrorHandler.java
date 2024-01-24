@@ -1,4 +1,4 @@
-package med.clinica.spring.api.infra;
+package med.clinica.spring.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
