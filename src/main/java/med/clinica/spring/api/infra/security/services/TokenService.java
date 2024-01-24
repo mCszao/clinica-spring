@@ -1,8 +1,10 @@
 package med.clinica.spring.api.infra.security.services;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import med.clinica.spring.api.domain.user.repository.UserEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,17 @@ public class TokenService {
         }
     }
 
+    public boolean isValidToken(String token){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("CLINICA")
+                    .build();
+            return true;
+        }catch (JWTVerificationException exception) {
+            throw new RuntimeException("Invalid token has been sended", exception);
+        }
+    }
     public Instant generateExpireDate(){
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-04:00"));
     }

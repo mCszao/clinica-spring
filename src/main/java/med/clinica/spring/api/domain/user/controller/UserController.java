@@ -6,7 +6,6 @@ import med.clinica.spring.api.domain.user.repository.UserEntity;
 import med.clinica.spring.api.infra.security.DTO.TokenJWT;
 import med.clinica.spring.api.infra.security.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
