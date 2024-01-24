@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import med.clinica.spring.api.model.address.AddressDTO;
+import med.clinica.spring.api.domain.address.AddressDTO;
 
 public record PatientDTO(
         @NotBlank

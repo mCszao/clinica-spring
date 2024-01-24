@@ -3,7 +3,7 @@ package med.clinica.spring.api.domain.patient.repository;
 
 import jakarta.persistence.*;
 import lombok.*;
-import med.clinica.spring.api.model.address.AddressEmbeddable;
+import med.clinica.spring.api.domain.address.AddressEmbeddable;
 import med.clinica.spring.api.domain.patient.dto.PatientDTO;
 
 @Entity(name = "patients")

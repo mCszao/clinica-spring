@@ -1,4 +1,4 @@
-package med.clinica.spring.api.model.address;
+package med.clinica.spring.api.domain.address;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

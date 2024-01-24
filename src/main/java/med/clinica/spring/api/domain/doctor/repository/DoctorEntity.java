@@ -2,9 +2,9 @@ package med.clinica.spring.api.domain.doctor.repository;
 
 import jakarta.persistence.*;
 import lombok.*;
-import med.clinica.spring.api.model.address.AddressEmbeddable;
+import med.clinica.spring.api.domain.address.AddressEmbeddable;
 import med.clinica.spring.api.domain.doctor.dto.DoctorDTO;
-import med.clinica.spring.api.model.specialty.Specialty;
+import med.clinica.spring.api.domain.specialty.Specialty;
 
 @Entity(name = "doctors")
 @Table(name = "doctors")

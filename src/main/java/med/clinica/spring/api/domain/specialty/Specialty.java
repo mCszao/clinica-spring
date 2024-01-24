@@ -1,4 +1,4 @@
-package med.clinica.spring.api.model.specialty;
+package med.clinica.spring.api.domain.specialty;
 
 public enum Specialty {
     ORTOPEDIA,

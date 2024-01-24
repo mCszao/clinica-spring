@@ -1,6 +1,6 @@
 package med.clinica.spring.api.domain.doctor.services;
 
-import med.clinica.spring.api.model.address.AddressEmbeddable;
+import med.clinica.spring.api.domain.address.AddressEmbeddable;
 import med.clinica.spring.api.domain.doctor.dto.DoctorDTO;
 import med.clinica.spring.api.domain.doctor.dto.DoctorUpdateDTO;
 import med.clinica.spring.api.domain.doctor.dto.ShortDoctorDTO;
