@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import med.clinica.spring.api.domain.user.repository.UserEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,10 @@ public class TokenService {
     public boolean isValidToken(String token){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            JWTVerifier verifier = JWT.require(algorithm)
+            DecodedJWT decoded = JWT.require(algorithm)
                     .withIssuer("CLINICA")
-                    .build();
+                    .build()
+                    .verify(token);
             return true;
         }catch (JWTVerificationException exception) {
             throw new RuntimeException("Invalid token has been sended", exception);
