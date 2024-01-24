@@ -31,6 +31,19 @@ public class TokenService {
         }
     }
 
+    public String getSubject(String token){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    .withIssuer("CLINICA")
+                    .build()
+                    .verify(token)
+                    .getSubject();
+        }catch (JWTVerificationException exception) {
+            throw new RuntimeException("Invalid token has been sended", exception);
+        }
+    }
+
     public boolean isValidToken(String token){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
