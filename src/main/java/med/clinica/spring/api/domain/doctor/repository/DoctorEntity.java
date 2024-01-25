@@ -5,6 +5,8 @@ import lombok.*;
 import med.clinica.spring.api.domain.address.AddressEmbeddable;
 import med.clinica.spring.api.domain.doctor.dto.DoctorDTO;
 import med.clinica.spring.api.domain.specialty.Specialty;
+import med.clinica.spring.api.domain.user.repository.UserEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity(name = "doctors")
 @Table(name = "doctors")
@@ -27,6 +29,9 @@ public class DoctorEntity {
     private Specialty specialty;
     @Embedded
     private AddressEmbeddable address;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UserEntity user;
 
     public DoctorEntity(DoctorDTO doctor){
         this.name = doctor.name();
