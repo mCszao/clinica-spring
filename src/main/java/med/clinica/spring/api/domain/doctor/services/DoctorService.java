@@ -6,7 +6,10 @@ import med.clinica.spring.api.domain.doctor.dto.DoctorUpdateDTO;
 import med.clinica.spring.api.domain.doctor.dto.ShortDoctorDTO;
 import med.clinica.spring.api.domain.doctor.repository.DoctorEntity;
 import med.clinica.spring.api.domain.doctor.repository.DoctorRepository;
+import med.clinica.spring.api.domain.user.repository.UserEntity;
+import med.clinica.spring.api.infra.security.config.AuthSecurityConfiguration;
 import med.clinica.spring.api.util.PageableResponse;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,9 +20,16 @@ public class DoctorService {
     @Autowired
     private DoctorRepository repository;
 
+    @Autowired
+    private AuthSecurityConfiguration authConfig;
+
 
     public ShortDoctorDTO insert(DoctorDTO dto) {
         var doctor = new DoctorEntity(dto);
+        var relationalUser = new UserEntity();
+        relationalUser.setUsername(doctor.getMail());
+        relationalUser.setPassword(authConfig.getPasswordEncoder().encode("123456"));
+        doctor.setUser(relationalUser);
         this.repository.save(doctor);
         return new ShortDoctorDTO(doctor);
     }
