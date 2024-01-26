@@ -25,26 +25,19 @@ public class DoctorController {
     @Transactional
     @RequestMapping(value = "/signup")
     public ResponseEntity<ShortDoctorDTO> add(@RequestBody @Valid DoctorDTO doctor, UriComponentsBuilder uriBuilder){
-        try {
             var dto = DocService.insert(doctor);
             var uri = uriBuilder.path("/doctors/{id}").buildAndExpand(dto.getId()).toUri();
             return ResponseEntity.created(uri).body(dto);
-        }catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-
     }
 
 
     @GetMapping
     public ResponseEntity<PageableResponse<ShortDoctorDTO>> getAll(@PageableDefault(size = 5, sort = {"name"}) Pageable pageOptions) throws Exception{
-        try {
             var response = DocService.selectAll(pageOptions);
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
+
         }
-    }
+
 
 
 
