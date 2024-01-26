@@ -1,4 +1,4 @@
-package med.clinica.spring.api.domain.user.services;
+package med.clinica.spring.api.infra.security.services;
 
 import med.clinica.spring.api.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
