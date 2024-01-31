@@ -30,5 +30,9 @@ public class ErrorHandler {
         return new ResponseEntity<>(ex.getFieldErrors().stream().map(BaseErrorResponse::new).toList(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> handleDataViolationIntegrity(){
+        return new ResponseEntity<>(BaseErrorResponse.of(LocalDateTime.now(), "sensitive data duplicated, please verify your form again"), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
 
 }
